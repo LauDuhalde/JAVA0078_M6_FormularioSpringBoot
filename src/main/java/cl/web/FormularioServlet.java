@@ -21,7 +21,6 @@ public class FormularioServlet extends HttpServlet {
 		String nombre = request.getParameter("nombre");
         String edadStr = request.getParameter("edad");
 
-        String mensaje;
         int edad = -1;
 
         try {
@@ -31,16 +30,19 @@ public class FormularioServlet extends HttpServlet {
         }
 
         if (nombre == null || nombre.trim().isEmpty()) {
-            mensaje = "El nombre no puede estar vacío.";
-        } else if (edad < 0) {
-            mensaje = "La edad debe ser un número válido.";
-        } else {
-            mensaje = "Formulario enviado correctamente.";
+            request.setAttribute("error", "El nombre no puede estar vacío.");
+            request.getRequestDispatcher("/formulario.jsp").forward(request, response);
+            return;
+        }
+        if (edad < 0) {
+            request.setAttribute("error", "La edad debe ser un número válido.");
+            request.getRequestDispatcher("/formulario.jsp").forward(request, response);
+            return;
         }
 
         request.setAttribute("nombre", nombre);
         request.setAttribute("edad", edadStr);
-        request.setAttribute("mensaje", mensaje);
+        request.setAttribute("mensaje", "Formulario enviado correctamente.");
 
         request.getRequestDispatcher("/resultado.jsp").forward(request, response);
 	}

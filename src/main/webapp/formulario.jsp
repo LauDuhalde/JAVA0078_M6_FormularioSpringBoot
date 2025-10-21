@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="es-CL">
 <head>
@@ -9,6 +10,9 @@
 <body class="bg-light d-flex align-items-center justify-content-center vh-100">
 <div class="card shadow p-4" style="width: 25rem;">
     <h3 class="text-center mb-3">Formulario</h3>
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger" role="alert"><c:out value="${error}" /></div>
+    </c:if>
     <form action="procesar" method="post">
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>
